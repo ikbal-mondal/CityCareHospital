@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CityCare Hospital</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    :root {
+        --primary: #0077b6;
+        --secondary: #48cae4;
+        --accent: #caf0f8;
+        --bg: #f8f9fa;
+        --text: #222;
+        --white: #fff;
+        --shadow: 0 2px 8px rgba(0,0,0,0.07);
+        --radius: 12px;
+        --transition: 0.3s;
+    }
+
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color var(--transition);
+    }
+    a:hover { color: var(--secondary); }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .navbar {
+        background: var(--white);
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 24px;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-links li a {
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-weight: 500;
+        color: var(--text);
+        transition: background var(--transition), color var(--transition);
+    }
+    .nav-links li a.active,
+    .nav-links li a:hover {
+        background: var(--primary);
+        color: var(--white);
+    }
+    #themeToggle {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--primary);
+        transition: color var(--transition);
+    }
+    #themeToggle:hover { color: var(--secondary); }
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        cursor: pointer;
+    }
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 2px;
+        display: block;
+    }
+
+    .banner {
+        background: linear-gradient(120deg, var(--primary) 60%, var(--secondary) 100%);
+        color: var(--white);
+        padding: 80px 0 60px 0;
+        text-align: center;
+    }
+    .banner-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 12px;
+    }
+    .banner-content p {
+        font-size: 1.3rem;
+        margin-bottom: 28px;
+    }
+    .btn-primary {
+        background: var(--secondary);
+        color: var(--white);
+        padding: 12px 32px;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background var(--transition);
+        box-shadow: var(--shadow);
+    }
+    .btn-primary:hover {
+        background: var(--primary);
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+    .section h2 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 32px;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .about p {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+    }
+    .service-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 32px 20px;
+        text-align: center;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .service-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    }
+    .service-card i {
+        font-size: 2.2rem;
+        color: var(--primary);
+        margin-bottom: 14px;
+    }
+    .service-card h3 {
+        margin: 10px 0 8px 0;
+        font-size: 1.2rem;
+        color: var(--secondary);
+    }
+
+    .doctors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 28px;
+    }
+    .doctor-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        padding: 24px 12px 18px 12px;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .doctor-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .doctor-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 12px;
+        border: 3px solid var(--secondary);
+    }
+    .doctor-card h3 {
+        margin: 8px 0 4px 0;
+        color: var(--primary);
+        font-size: 1.1rem;
+    }
+    .doctor-card p {
+        color: #555;
+        font-size: 1rem;
+    }
+
+    .departments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        margin-top: 18px;
+    }
+    .department-card {
+        background: var(--accent);
+        color: var(--primary);
+        border-radius: var(--radius);
+        padding: 18px 0;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.05rem;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: background var(--transition), color var(--transition);
+    }
+    .department-card i {
+        font-size: 1.3rem;
+    }
+
+    .form-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 32px 24px;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+    .form-group {
+        margin-bottom: 18px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--primary);
+        font-weight: 500;
+        text-align: left;
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 1rem;
+        background: #f6f8fa;
+        transition: border var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+
+    .success-message {
+        background: #d1fae5;
+        color: #065f46;
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin-top: 18px;
+        text-align: center;
+        font-weight: 500;
+        box-shadow: var(--shadow);
+    }
+    .ticket-card {
+        background: var(--accent);
+        border: 2px dashed var(--primary);
+        border-radius: var(--radius);
+        padding: 18px 20px;
+        margin-top: 18px;
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--primary);
+        box-shadow: var(--shadow);
+    }
+
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .contact-info {
+        flex: 1 1 260px;
+    }
+    .contact-info h2 {
+        margin-bottom: 18px;
+    }
+    .contact-info p {
+        margin: 8px 0;
+        color: #444;
+    }
+    .contact-info i {
+        color: var(--primary);
+        margin-right: 8px;
+    }
+    .social-links {
+        margin-top: 12px;
+        display: flex;
+        gap: 16px;
+    }
+    .social-links a {
+        color: var(--primary);
+        font-size: 1.2rem;
+        transition: color var(--transition);
+    }
+    .social-links a:hover {
+        color: var(--secondary);
+    }
+    .contact-map {
+        flex: 1 1 320px;
+        min-width: 260px;
+    }
+
+    .footer {
+        background: var(--primary);
+        color: var(--white);
+        padding: 40px 0 0 0;
+    }
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 18px;
+    }
+    .footer-container h3,
+    .footer-container h4 {
+        margin-bottom: 10px;
+    }
+    .footer-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .footer-container ul li {
+        margin-bottom: 8px;
+    }
+    .footer-container ul li a {
+        color: var(--white);
+        transition: color var(--transition);
+    }
+    .footer-container ul li a:hover {
+        color: var(--accent);
+    }
+    .footer-bottom {
+        background: #023e8a;
+        color: #caf0f8;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 0.98rem;
+        margin-top: 18px;
+    }
+.contact-map { 
+    width: 100%; 
+    border: 3px solid #023e8a;
+    border-radius: 10px;
+
+}
+
+.contact-map iframe {
+    width: 100%;   
+   border-radius: 10px;
+    height: 300px;
+    border: none;
+    box-shadow: var(--shadow);
+
+}
+
+
+
+
+    @media (max-width: 900px) {
+        .container { padding: 0 10px; }
+        .footer-container, .contact-container {
+            flex-direction: column;
+            gap: 24px;
+        }
+        .contact-map { width: 100%; }
+    }
+    @media (max-width: 700px) {
+        .nav-links {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background: var(--white);
+            flex-direction: column;
+            width: 200px;
+            box-shadow: var(--shadow);
+            display: none;
+            padding: 18px 0;
+            z-index: 200;
+        }
+        .nav-links.open { display: flex; }
+        .hamburger { display: flex; }
+        .nav-links { 
+            width: 70%; margin: 0 auto;
+             text-align: center;
+             justify-content: center; 
+            background-color: #00a6ff;
+            color: #caf0f8;
+            border-radius: 20px;
+            }
+        .nav-links li { 
+            width: 80%; margin: 0 auto;
+             text-align: left; 
+            
+            }
+        .nav-links li a { display: block; width: 100%;  }
+    }
+    @media (max-width: 600px) {
+        .banner-content h1 { font-size: 2rem; }
+        .section { padding: 36px 0; }
+        .form-card { padding: 18px 8px; }
+    }
+</style>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+        <div class="container nav-container">
+             <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="logo"><i class="fa-solid fa-hospital"></i> CityCare Hospital</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#departments">Departments</a></li>
+                <li><a href="#opd">OPD Booking</a></li>
+                <li><a href="#appointment">Appointment</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                </li>
+            </ul>
+           
+        </div>
+    </nav>
+
+    <!-- Banner/Header -->
+    <header id="home" class="banner">
+        <div class="banner-content">
+            <h1>CityCare Hospital</h1>
+            <p>Compassion. Innovation. Excellence.</p>
+            <a href="#appointment" class="btn-primary">Book Appointment</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2>About Our Hospital</h2>
+            <p>
+                CityCare Hospital is dedicated to providing world-class healthcare with compassion and innovation. Our mission is to deliver comprehensive medical services, foster research, and promote community well-being.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <h3>Emergency</h3>
+                    <p>24/7 emergency care with advanced life support.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-x-ray"></i>
+                    <h3>Diagnostics</h3>
+                    <p>Modern labs and imaging for accurate diagnosis.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <h3>Surgery</h3>
+                    <p>State-of-the-art operation theaters and expert surgeons.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <h3>Cardiology</h3>
+                    <p>Comprehensive heart care and rehabilitation.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-baby"></i>
+                    <h3>Pediatrics</h3>
+                    <p>Specialized care for infants, children, and adolescents.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>Neurology</h3>
+                    <p>Advanced treatment for neurological disorders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="section doctors">
+        <div class="container">
+            <h2>Meet Our Doctors</h2>
+            <div class="doctors-grid">
+                <div class="doctor-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. John Smith">
+                    <h3>Dr. John Smith</h3>
+                    <p>Cardiologist</p>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Emily Clark">
+                    <h3>Dr. Emily Clark</h3>
+                    <p>Pediatrician</p>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Dr. Michael Lee">
+                    <h3>Dr. Michael Lee</h3>
+                    <p>Neurologist</p>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Sarah Patel">
+                    <h3>Dr. Sarah Patel</h3>
+                    <p>Orthopedic Surgeon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section id="departments" class="section departments">
+        <div class="container">
+            <h2>Departments</h2>
+            <div class="departments-grid">
+                <div class="department-card"><i class="fa-solid fa-heart"></i> Cardiology</div>
+                <div class="department-card"><i class="fa-solid fa-brain"></i> Neurology</div>
+                <div class="department-card"><i class="fa-solid fa-bone"></i> Orthopedics</div>
+                <div class="department-card"><i class="fa-solid fa-baby"></i> Pediatrics</div>
+                <div class="department-card"><i class="fa-solid fa-lungs"></i> Pulmonology</div>
+                <div class="department-card"><i class="fa-solid fa-stethoscope"></i> General Medicine</div>
+                <div class="department-card"><i class="fa-solid fa-eye"></i> Ophthalmology</div>
+                <div class="department-card"><i class="fa-solid fa-tooth"></i> Dentistry</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OPD Booking Section -->
+    <section style="background-color: #0077b6;" id="opd" class="section opd">
+        <div class="container">
+            <h2 style="color: #d1d5db;">OPD Ticket Booking</h2>
+            <form id="opdForm" class="form-card">
+                <div class="form-group">
+                    <label for="opdName">Name</label>
+                    <input type="text" id="opdName" required>
+                </div>
+                <div class="form-group">
+                    <label for="opdAge">Age</label>
+                    <input type="number" id="opdAge" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="opdDept">Department</label>
+                    <select id="opdDept" required>
+                        <option value="">Select</option>
+                        <option style="display: flex; ">Cardiology</option>
+                        <option>Neurology</option>
+                        <option>Orthopedics</option>
+                        <option>Pediatrics</option>
+                        <option>Pulmonology</option>
+                        <option>General Medicine</option>
+                        <option>Ophthalmology</option>
+                        <option>Dentistry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="opdDate">Preferred Date</label>
+                    <input type="date" id="opdDate" required>
+                </div>
+                <button type="submit" class="btn-primary">Book Ticket</button>
+            </form>
+            <div id="opdSuccess" class="success-message" style="display:none;"></div>
+            <div id="opdTicket" class="ticket-card" style="display:none;"></div>
+        </div>
+    </section>
+
+   
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p><i class="fa-solid fa-location-dot"></i> 123 Main Street, Cityville</p>
+                <p><i class="fa-solid fa-phone"></i> +1 234 567 890</p>
+                <p><i class="fa-solid fa-envelope"></i> info@citycarehospital.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps?q=New+York+City+Hospital&output=embed" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div>
+                <h3>CityCare Hospital</h3>
+                <p>123 Main Street, Cityville</p>
+                <p>+1 234 567 890</p>
+                <p>info@citycarehospital.com</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#doctors">Doctors</a></li>
+                    <li><a href="#departments">Departments</a></li>
+                    <li><a href="#opd">OPD Booking</a></li>
+                    <li><a href="#appointment">Appointment</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 CityCare Hospital. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Script  -->
+<script>
+// Navbar hamburger menu for mobile
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+});
+
+// Close nav on link click (mobile)
+navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+    });
+});
+
+// Active nav link highlight on scroll
+const sections = document.querySelectorAll('section');
+const navItems = document.querySelectorAll('.nav-links li a');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80;
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute('id');
+        }
+    });
+    navItems.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Theme toggle (light/dark)
+const themeToggle = document.getElementById('themeToggle');
+let darkMode = false;
+themeToggle.addEventListener('click', () => {
+    darkMode = !darkMode;
+    if (darkMode) {
+        document.documentElement.style.setProperty('--primary', '#22223b');
+        document.documentElement.style.setProperty('--secondary', '#4a4e69');
+        document.documentElement.style.setProperty('--accent', '#9a8c98');
+        document.documentElement.style.setProperty('--bg', '#232946');
+        document.documentElement.style.setProperty('--text', '#f4f4f4');
+        document.documentElement.style.setProperty('--white', '#232946');
+        themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    } else {
+        document.documentElement.style.setProperty('--primary', '#0077b6');
+        document.documentElement.style.setProperty('--secondary', '#48cae4');
+        document.documentElement.style.setProperty('--accent', '#caf0f8');
+        document.documentElement.style.setProperty('--bg', '#f8f9fa');
+        document.documentElement.style.setProperty('--text', '#222');
+        document.documentElement.style.setProperty('--white', '#fff');
+        themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+});
+
+// OPD Booking Form
+const opdForm = document.getElementById('opdForm');
+const opdSuccess = document.getElementById('opdSuccess');
+const opdTicket = document.getElementById('opdTicket');
+opdForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('opdName').value.trim();
+    const age = document.getElementById('opdAge').value.trim();
+    const dept = document.getElementById('opdDept').value;
+    const date = document.getElementById('opdDate').value;
+    if (!name || !age || !dept || !date) return;
+    opdSuccess.style.display = 'block';
+    opdSuccess.textContent = 'OPD Ticket booked successfully!';
+    opdTicket.style.display = 'block';
+    opdTicket.innerHTML = `
+        <strong>OPD Ticket</strong><br>
+        Name: ${name}<br>
+        Age: ${age}<br>
+        Department: ${dept}<br>
+        Date: ${date}
+    `;
+    opdForm.reset();
+    setTimeout(() => { opdSuccess.style.display = 'none'; }, 3500);
+});
+
+// Appointment Booking Form
+const appForm = document.getElementById('appointmentForm');
+const appSuccess = document.getElementById('appSuccess');
+const appTicket = document.getElementById('appTicket');
+appForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('appName').value.trim();
+    const age = document.getElementById('appAge').value.trim();
+    const dept = document.getElementById('appDept').value;
+    const doctor = document.getElementById('appDoctor').value;
+    const date = document.getElementById('appDate').value;
+    const time = document.getElementById('appTime').value;
+    if (!name || !age || !dept || !doctor || !date || !time) return;
+    appSuccess.style.display = 'block';
+    appSuccess.textContent = 'Appointment booked successfully!';
+    appTicket.style.display = 'block';
+    appTicket.innerHTML = `
+        <strong>Appointment Details</strong><br>
+        Name: ${name}<br>
+        Age: ${age}<br>
+        Department: ${dept}<br>
+        Doctor: ${doctor}<br>
+        Date: ${date}<br>
+        Time: ${time}
+    `;
+    appForm.reset();
+    setTimeout(() => { appSuccess.style.display = 'none'; }, 3500);
+});
+
+// Set min date for date pickers to today
+function setMinDate(id) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById(id).setAttribute('min', `${yyyy}-${mm}-${dd}`);
+}
+setMinDate('opdDate');
+setMinDate('appDate');
+</script>
+
+</body>
+</html>
